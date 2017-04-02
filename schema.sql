@@ -1,8 +1,9 @@
 drop table if exists users;
 create table users (
   id integer primary key autoincrement,
-  name string not null,
-  passwd string not null
+  user_name string not null,
+  hashed_name_passwd string not null,
+  balance real DEFAULT 0
 );
 
 drop table if exists live_general;

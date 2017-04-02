@@ -1,6 +1,9 @@
 # python virtual environment
 /environment
 
+# jet barin files
+/.idea
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

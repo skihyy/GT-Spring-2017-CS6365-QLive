@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='basic.js') }}"></script>
+    <title>Quora - A place to share knowledge and better understand the world</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='icon.png') }}">
+</head>
+<body>
+{% if not session.logged_in %}
+    <script type="text/javascript">
+        window.location = "/";
+    </script>
+{% else %}
+    <form action="/live" method="post" id="liveForm">
+        <input type="text" name="type" hidden="hidden" id="liveType" value="true">
+        <input type="submit" value="Live Host">
+    </form>
+    <form action="/live" method="post" id="liveForm">
+        <input type="text" name="type" hidden="hidden" id="liveType" value="false">
+        <input type="submit" value="Live Participant">
+    </form>
+{% endif %}
+</body>
+</html>

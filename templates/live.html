@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='basic.js') }}"></script>
+    <title>Quora - A place to share knowledge and better understand the world</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='icon.png') }}">
+    {% if session.logged_in %}
+        <script type="text/javascript" src="{{ url_for('static', filename='qlive.js') }}"></script>
+        <script type="text/javascript" src="https://cdn.goeasy.io/goeasy.js"></script>
+    {% endif %}
+</head>
+<body>
+{% if not session.logged_in %}
+    <script type="text/javascript">
+        window.location = "/home";
+    </script>
+{% else %}
+    {% if "true" == is_host %}
+        <div class="live">
+            "host"
+            <div class="message" id="messageBox">
+            </div>
+            <form action="#" method="post">
+                <input id="contentBox" type="text" placeholder="Type something..." name="content">
+                <input type="button" value="send" onclick="sendMsg('{{ appkey }}')">
+            </form>
+        </div>
+    {% else %}
+        <div class="live">
+            "par"
+            <div class="message" id="messageBox">
+            </div>
+        </div>
+        <script>
+            var receiver = new GoEasy({appkey: '{{ appkey }}'});
+            receiver.subscribe({
+                channel: 'demo_channel',
+                onMessage: function(message){
+                    //alert(message.content);
+                    appendToMessageBox(message.content);
+                }
+            });
+        </script>
+    {% endif %}
+{% endif %}
+</body>
+</html>
