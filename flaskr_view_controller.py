@@ -8,18 +8,30 @@ app = Flask(__name__)
 app.config.update(dict(
     DATABASE=os.path.join(app.root_path, 'flaskr.db'),
     DEBUG=True,
-    SECRET_KEY='jz67NUU5$ych89S7D&yGkm&qNHZfzJj7q*Zs3&h!JyzvG'
+    SECRET_KEY='jz67NUU5$ych89S7D&yGkm&qNHZfzJj7q*Zs3&h!JyzvG',
+    # sender key is used for sending message in a live session
+    SENDER_KEY='8a746066-d341-459d-8fd7-06a78ef7a233',
+    # receiver ket is used for receiving messages in a live session
+    # a sender key can be used as a receiver key as well
+    # but the receiver key cannot be used as a sender key
+    RECEIVER_KEY='0a3fbe58-cce5-468b-9bbe-36217bbc6927'
 ))
 app.config.from_envvar('FLASKR_SETTINGS', silent=True)
 
 
 @app.before_request
 def before_request():
+    """
+    Set up database connection before any incoming request.
+    """
     g.db = connect_db()
 
 
 @app.teardown_request
 def teardown_request(exception):
+    """
+    Tear down request, so closing the database connection.
+    """
     if hasattr(g, 'db'):
         g.db.close()
 
@@ -60,11 +72,20 @@ def get_db():
 
 @app.route('/', methods=['GET', 'POST'])
 def start():
+    """
+    Initially go to the default home page which requires login.
+    :return:  a rendered website of homepage.
+    """
     return render_template('main.html', first=True)
 
 
 @app.route('/login', methods=['POST'])
 def log_in():
+    """
+    Go to login. Will check whether the user name and password matches the database.
+    In order to make it strong security, hashed password is used.
+    :return: if login successfully, then the user home page will be loaded. Otherwise, home page with error message will be rendered.
+    """
     error = 'Connection failed, please try again.'
     if 'POST' == request.method:
         # get instance of database
@@ -81,15 +102,19 @@ def log_in():
     return render_template('main.html', error=error)
 
 
-@app.route('/home')
+@app.route('/home', methods=['GET', 'POST'])
 def go_to_home():
     if not session['logged_in']:
         return render_template('main.html')
     else:
+        # TODO: get a list of live sessions.
+
+        # TODO: get user details.
+
         return render_template('home.html')
 
 
-@app.route('/logout')
+@app.route('/logout', methods=['GET', 'POST'])
 def log_out():
     session.pop('logged_in', None)
     return render_template('main.html')
