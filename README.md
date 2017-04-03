@@ -4,3 +4,4 @@
 1. Create python virtual environment for Flask and other run time environment by `virtualenv environment --no-site-packages`.
 2. Activate the environment by `source environment/bin/activate`.
 3. Install Flask by `pip install flask`.
+4. Start server by `python flaskr.py`.
