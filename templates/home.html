@@ -8,7 +8,7 @@
     <link rel="shortcut icon" href="{{ url_for('static', filename='icon.png') }}">
 </head>
 <body>
-{% if not session.logged_in %}
+{% if not session.logged_in or not session.user_id or not user or not lives %}
     <script type="text/javascript">
         window.location = "/";
     </script>
@@ -21,6 +21,46 @@
         <input type="text" name="type" hidden="hidden" id="liveType" value="false">
         <input type="submit" value="Live Participant">
     </form>
+    <div class="personalInfo">
+        <div class="avatar">
+            <img src="{{ url_for('static', filename='{{ user.id }}.png') }}">
+        </div>
+        <div class="otherInfo">
+            <div class="info">
+                {{ user.nick_name }}
+            </div>
+            <div class="info">
+                {{ user.balance }}
+            </div>
+        </div>
+        <div class="registerLive">
+            <form class="registerForm" action="/live" method="post">
+                <input type="text" name="type" hidden="hidden" id="liveType" value="true">
+                <input type="submit" value="Start a Live Session">
+            </form>
+        </div>
+    </div>
+    <div class="liveList">
+        <table>
+            <tr>
+                <th>Live Name</th>
+                <th>Host Name</th>
+                <th>Action</th>
+            </tr>
+            {% for live in lives %}
+                <td>{{ live.title }}</td>
+                <td>{{ live.host_name }}</td>
+                <form class="liveDetails" action="/live" method="post">
+                    {% if live.id != session.user_id %}
+                        <input type="text" name="type" hidden="hidden" id="liveType" value="false">
+                    {% else %}
+                        <input type="text" name="type" hidden="hidden" id="liveType" value="true">
+                    {% endif %}
+                    <input type="submit" value="Join">
+                </form>
+            {% endfor %}
+        </table>
+    </div>
 {% endif %}
 </body>
 </html>
