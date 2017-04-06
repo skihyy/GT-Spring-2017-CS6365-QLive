@@ -6,3 +6,7 @@
 3. Install Flask by `pip install flask`.
 4. Start server by `python flaskr_view_controller.py`.
 5. To delete the temporary run time environment, simply delete `/environment` folder.
+
+## Preinstalled Test Data
+1. There are already 6 users, from `test1@test.com` to `test6@test.com` with all same password `123456`.
+2. There are already 2 live sessions in the database, belongs to `test1` user and `test4` user.
