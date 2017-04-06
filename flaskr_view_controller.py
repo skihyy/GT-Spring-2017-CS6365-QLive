@@ -92,14 +92,16 @@ def live():
         return render_template('main.html')
     else:
         print(request.form['type'])
-        # TODO: if is host or participant
+        # if is host or participant
         is_host = request.form['type']
-        # TODO: get app key from DB
+        # get app key from config
         if 'true' == is_host:
             appkey = app.config['SENDER_KEY']
         else:
             appkey = app.config['RECEIVER_KEY']
-        return render_template('live.html', is_host=is_host, appkey=appkey)
+        # get channel
+        channel = request.form['live_id'] + 'channel'
+        return render_template('live.html', is_host=is_host, appkey=appkey, channel=channel)
 
 
 if '__main__' == __name__:

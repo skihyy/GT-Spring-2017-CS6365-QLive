@@ -24,9 +24,13 @@
             </div>
             <form action="#" method="post">
                 <input id="contentBox" type="text" placeholder="Type something..." name="content">
-                <input type="button" value="send" onclick="sendMsg('{{ appkey }}')">
+                <input type="button" value="send" onclick="sendMsg()">
             </form>
         </div>
+        <script>
+            var sender = new GoEasy({appkey: '{{ appkey }}'});
+            var channel = '{{ channel }}';
+        </script>
     {% else %}
         <div class="live">
             "par"
@@ -36,7 +40,7 @@
         <script>
             var receiver = new GoEasy({appkey: '{{ appkey }}'});
             receiver.subscribe({
-                channel: 'demo_channel',
+                channel: '{{ channel }}',
                 onMessage: function(message){
                     //alert(message.content);
                     appendToMessageBox(message.content);

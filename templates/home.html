@@ -50,6 +50,7 @@
                     <td>{{ live.host_name }}</td>
                     <td>
                         <form class="liveDetails" action="/live" method="post">
+                            <input type="text" name="live_id" hidden="hidden" id="liveID" value="{{ live.id }}">
                             {% if live.host_id != session.user_id %}
                                 <input type="text" name="type" hidden="hidden" id="liveType" value="false">
                             {% else %}

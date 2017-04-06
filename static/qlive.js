@@ -1,27 +1,20 @@
 /**
  * Created by yuyanghe on 2017/4/2.
  */
-var sender = null;
 var messageBox = null;
-function sendMsg(appkey) {
-    if (null == sender) {
-        sender = new GoEasy({
-            appkey: appkey
-        });
-    }
+
+function sendMsg() {
     var content = document.getElementById("contentBox").value;
     document.getElementById("contentBox").value = "";
     sender.publish({
-            channel: 'demo_channel',
-            message: content
-        });
+        channel: channel,
+        message: content
+    });
     appendToMessageBox(content);
 }
 
-function appendToMessageBox(content)
-{
-    if(null == messageBox)
-    {
+function appendToMessageBox(content) {
+    if (null == messageBox) {
         messageBox = document.getElementById("messageBox");
     }
     var newDiv = document.createElement("div");
@@ -30,4 +23,8 @@ function appendToMessageBox(content)
     newSpan.innerText = content;
     newDiv.appendChild(newSpan);
     messageBox.appendChild(newDiv);
+}
+
+if (window.event.keyCode == 13) {
+    sendMsg();
 }
