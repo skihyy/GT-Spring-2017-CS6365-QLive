@@ -48,8 +48,8 @@ def get_user_info(db, uid):
     user = cur.fetchall()
     if 0 == len(user):
         return None
-    return User(user[0]['id'], user[0]['user_name'], user[0]['hashed_user_passwd'], user[0]['balance'],
-                user[0]['nick_name'])
+    print(user)
+    return User(user[0][0], user[0][1], user[0][2], user[0][3], user[0][4])
 
 
 def has_user(db, user_name, passwd):

@@ -8,11 +8,6 @@
     <link rel="shortcut icon" href="{{ url_for('static', filename='icon.png') }}">
 </head>
 <body>
-{% if not session.logged_in or not session.user_id or not user or not lives %}
-    <script type="text/javascript">
-        window.location = "/";
-    </script>
-{% else %}
     <form action="/live" method="post" id="liveForm">
         <input type="text" name="type" hidden="hidden" id="liveType" value="true">
         <input type="submit" value="Live Host">
@@ -61,6 +56,5 @@
             {% endfor %}
         </table>
     </div>
-{% endif %}
 </body>
 </html>
