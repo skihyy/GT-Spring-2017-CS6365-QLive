@@ -57,7 +57,7 @@ def log_in():
     error = 'Connection failed, please try again.'
     if 'POST' == request.method:
         # get instance of database
-        user_id = user_model.has_user(dao.get_db(app), request.form['name'], request.form['pass'])
+        user_id = user_model.has_user(request.form['name'], request.form['pass'])
         if -1 != user_id:
             session['logged_in'] = True
             session['user_id'] = user_id
@@ -74,9 +74,9 @@ def go_to_home():
         return render_template('main.html')
     else:
         # TODO: get a list of live sessions.
-        lives = live_model.get_live_sessions(dao.get_db(app))
+        lives = live_model.get_live_sessions()
         # TODO: get user details.
-        user = user_model.get_user_info(dao.get_db(app), session['user_id'])
+        user = user_model.get_user_info(session['user_id'])
         return render_template('home.html', user=user, lives=lives)
 
 
