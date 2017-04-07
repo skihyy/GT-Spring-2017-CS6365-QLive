@@ -39,6 +39,14 @@ def create_live_session(host_id, title, price):
                   args=[title, host_id, price])
 
 
+def end_live_session(live_id):
+    """
+    End current live session.
+    :param live_id: live session id
+    """
+    dao.query_add('UPDATE live_general SET has_end = 1 WHERE id = ?', [live_id])
+
+
 def get_live_session_id():
     """
     :return: Return the live session id.

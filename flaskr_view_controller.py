@@ -112,13 +112,18 @@ def live():
         # decode unicode to utf-8 str
         live_id = request.form['live_id'].encode()
         # get channel
-        if '-1' != live_id:
-            channel = request.form['live_id'] + app.config['CHANNEL_SUFFIX']
-        else:
+        if '-1' == live_id:
             # in this way, must be someone start new session
             live_model.create_live_session(session['user_id'], request.form['title'], request.form['price'])
-            channel = live_model.get_live_session_id()
-        return render_template('live.html', is_host=is_host, appkey=appkey, channel=channel)
+            live_id = live_model.get_live_session_id()
+        channel = request.form['live_id'] + app.config['CHANNEL_SUFFIX']
+        return render_template('live.html', is_host=is_host, appkey=appkey, channel=channel, live_id=live_id)
+
+
+@app.route('/quit', methods=['POST'])
+def quit_live():
+    live_model.end_live_session(request.form['live_id'])
+    return go_to_home()
 
 
 if '__main__' == __name__:

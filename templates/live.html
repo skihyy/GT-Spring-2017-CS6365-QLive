@@ -23,6 +23,11 @@
         </form>
     </div>
     {% if "true" == is_host %}
+        <form action="/quit" method="post"
+              onsubmit="return confirm('Are you sure to end current live session?')">
+            <input type="submit" value="End Session">
+            <input type="text" hidden="hidden" name="live_id" value="{{ live_id }}">
+        </form>
         <div class="live">
             "host"
             <div class="message" id="messageBox">
