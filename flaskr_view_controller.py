@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import os
 import dao
 import user_model
@@ -16,7 +17,8 @@ app.config.update(dict(
     # receiver ket is used for receiving messages in a live session
     # a sender key can be used as a receiver key as well
     # but the receiver key cannot be used as a sender key
-    RECEIVER_KEY='0a3fbe58-cce5-468b-9bbe-36217bbc6927'
+    RECEIVER_KEY='0a3fbe58-cce5-468b-9bbe-36217bbc6927',
+    CHANNEL_SUFFIX='9n7PyJ8SmDfmRt8Gv522'
 ))
 app.config.from_envvar('FLASKR_SETTINGS', silent=True)
 
@@ -73,9 +75,12 @@ def go_to_home():
     if not session['logged_in']:
         return render_template('main.html')
     else:
-        # TODO: get a list of live sessions.
+        # get a list of live sessions.
         lives = live_model.get_live_sessions()
-        # TODO: get user details.
+        for live in lives:
+            # check if user has joined the session
+            live['has_joined'] = live_model.has_paid(session['user_id'], live['id'])
+        # get user details.
         user = user_model.get_user_info(session['user_id'])
         return render_template('home.html', user=user, lives=lives)
 
@@ -83,24 +88,36 @@ def go_to_home():
 @app.route('/logout', methods=['GET', 'POST'])
 def log_out():
     session.pop('logged_in', None)
+    session.pop('user_id', None)
     return render_template('main.html')
 
 
-@app.route('/live', methods=['GET', 'POST'])
+@app.route('/live', methods=['POST'])
 def live():
     if not session['logged_in']:
         return render_template('main.html')
     else:
-        print(request.form['type'])
+        if 'add_new' == request.form['TODO']:
+            live_model.add_participant(request.form['live_id'], session['user_id'])
         # if is host or participant
         is_host = request.form['type']
         # get app key from config
         if 'true' == is_host:
             appkey = app.config['SENDER_KEY']
         else:
+            if not live_model.has_paid(session['user_id'], request.form['live_id']):
+                live_detail = live_model.get_live_session(request.form['live_id'])
+                return render_template('pay.html', live=live_detail)
             appkey = app.config['RECEIVER_KEY']
+        # decode unicode to utf-8 str
+        live_id = request.form['live_id'].encode()
         # get channel
-        channel = request.form['live_id'] + 'channel'
+        if '-1' != live_id:
+            channel = request.form['live_id'] + app.config['CHANNEL_SUFFIX']
+        else:
+            # in this way, must be someone start new session
+            live_model.create_live_session(session['user_id'], request.form['title'], request.form['price'])
+            channel = live_model.get_live_session_id()
         return render_template('live.html', is_host=is_host, appkey=appkey, channel=channel)
 
 

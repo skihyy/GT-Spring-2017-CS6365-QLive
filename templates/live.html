@@ -17,6 +17,11 @@
         window.location = "/home";
     </script>
 {% else %}
+    <div class="logout">
+        <form class="logout" action="/logout" method="post">
+            <input type="submit" value="Logout">
+        </form>
+    </div>
     {% if "true" == is_host %}
         <div class="live">
             "host"

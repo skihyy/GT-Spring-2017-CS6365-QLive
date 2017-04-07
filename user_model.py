@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import dao
 
 
@@ -36,3 +37,7 @@ def has_user(user_name, passwd):
         return -1
     else:
         return user[0]['id']
+
+
+def update_balance(user_id, new_balance):
+    dao.query_add('UPDATE users SET balance = ? WHERE id = ?', args=[new_balance, user_id])

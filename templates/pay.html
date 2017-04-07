@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='basic.js') }}"></script>
+    <title>Quora - A place to share knowledge and better understand the world</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='icon.png') }}">
+</head>
+<body>
+<form id="confirmForm" method="post" action="/live">
+    <input type="text" value="add_new" hidden="hidden" name="TODO">
+    <input type="text" name="type" hidden="hidden" id="liveType1" value="false">
+    <input type="text" name="live_id" hidden="hidden" id="liveID" value="{{ live.id }}">
+</form>
+<script>
+    if (true == confirm('You are going to pay ${{live.price}} to join the live session {{live.title}}.')) {
+        document.getElementById('confirmForm').submit();
+    }
+    else {
+        window.history.back();
+    }
+</script>
+</body>
+</html>

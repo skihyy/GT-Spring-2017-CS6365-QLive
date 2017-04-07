@@ -11,6 +11,22 @@ function validate() {
     document.getElementById("passInput").value = hashed_name_pass;
 }
 
+/**
+ * Validate the balance of user before joining a live session.
+ * @param price price of live session
+ * @param balance balance in one's account
+ * @returns whether the balance can afford the price
+ */
+function checkValidation(price, balance)
+{
+    if(price > balance)
+    {
+        alert("There is no enough balance in your account.");
+        return false;
+    }
+    return true;
+}
+
 var I64BIT_TABLE =
     'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-'.split('');
 
