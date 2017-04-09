@@ -9,26 +9,30 @@
 </head>
 <body>
 {% if not session.logged_in %}
-    <div class="title">Quora</div>
-    <div class="title_description">A place to share knowledge and better understand the world</div>
-    <div class="login">
-        <div class="field">
-            <span>Login</span>
-            {% if error %}
-                <span>{{error}}</span>
-            {% endif %}
+    <div class="background">
+        <div class="signup_form">
+            <div class="title"></div>
+            <div class="title_description">Little Money = Big Knowledge</div>
+            <div class="login">
+                <div class="field">
+                    <span>Login</span>
+                    {% if error %}
+                        <span>{{error}}</span>
+                    {% endif %}
+                </div>
+                <form action="/login" method="post" onsubmit="validate()">
+                    <div class="field">
+                        <input type="text" name="name" id="nameInput" placeholder="Email" required="required">
+                    </div>
+                    <div class="field">
+                        <input type="password" name="pass" id="passInput" placeholder="Password" required="required">
+                    </div>
+                    <div class="field">
+                        <input type="submit" value="Login">
+                    </div>
+                </form>
+            </div>
         </div>
-        <form action="/login" method="post" onsubmit="validate()">
-            <div class="field">
-                <input type="text" name="name" id="nameInput" placeholder="Email" required="required">
-            </div>
-            <div class="field">
-                <input type="password" name="pass" id="passInput" placeholder="Password" required="required">
-            </div>
-            <div class="field">
-                <input type="submit" value="Login">
-            </div>
-        </form>
     </div>
 {% else %}
     <script type="text/javascript">

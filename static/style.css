@@ -1,0 +1,58 @@
+.background {
+    background: url(./bg_image.png);
+    background-size: 1757px 845px;
+    height: 100%;
+    width: 1757px;
+    background-repeat: no-repeat;
+    background-position: center 10%;
+    position: absolute;
+    left: calc(50% - 878.5px);
+    opacity: .9;
+    bottom: 0;
+}
+
+.signup_form{
+    width: 650px;
+    position: absolute;
+    bottom: initial;
+    left: 0;
+    right: 0;
+    margin: auto;
+    overflow-y: hidden;
+    top: 10%;
+}
+
+.title{
+    margin: auto;
+    width: 320px;
+    height: 180px;
+    background-size: 320px 180px;
+    background-image: url(./project_logo.jpg);
+    background-repeat: no-repeat;
+    background-position: center center;
+    #height: 82px;
+    position: relative;
+}
+
+.title_description{
+    text-align: center;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    margin-bottom: 15px;
+}
+
+.login{
+    text-align: center;
+}
+
+.field{
+    margin-bottom: 10px;
+}
+
+#nameInput{
+    width: 200px;
+}
+
+
+#passInput{
+    width: 200px;
+}
