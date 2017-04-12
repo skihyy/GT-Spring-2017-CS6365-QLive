@@ -56,3 +56,86 @@
 #passInput{
     width: 200px;
 }
+
+.logoutArea{
+    width:100%;
+    height:50px;
+    #margin-bottom:10px;
+    background-color:Gainsboro;
+    float: left;
+}
+
+input[type=button], input[type=submit], input[type=reset] {
+    background-color: CornflowerBlue ;
+    border: none;
+    color: white;
+    padding: 16px 16px;
+    height:50px;
+    text-decoration: none;
+    margin: 0px 0px;
+    cursor: pointer;
+}
+
+
+.avatar{
+    background-color:AliceBlue;
+    height: 200px;
+    width:250px;
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+
+.info {
+    text-align: center;
+    margin-top:10px;
+}
+
+.registerLive{
+    border-top: 2px solid Gainsboro;
+    margin-top: 180px;
+    text-align: center;
+    line-height: 30px;
+}
+
+
+.personalInfoArea{
+    height:600px;
+    width: 250px;
+    display:inline-block;
+    border-right: 2px solid Gainsboro;
+    background-color:LightSkyBlue;
+    float: left;
+}
+.liveListArea{
+    height:600px;
+    width: 500px;
+    display:inline-block;
+    border-right: 2px solid Gainsboro;
+    float: left;
+    border-bottom: 2px solid Gainsboro;
+}
+
+.liveListTitle{
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+    border-bottom: 2px solid Gainsboro;
+    background-color:LightSkyBlue;
+    font-weight: bold;
+}
+
+.liveList{
+    margin-top:30px;
+    line-height: 30px;
+}
+
+table {
+  border-collapse: separate;
+  border-spacing: 30px 0;
+}
+
+td {
+  padding: 10px 0;
+}
