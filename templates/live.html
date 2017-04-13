@@ -17,49 +17,59 @@
         window.location = "/home";
     </script>
 {% else %}
-    <div class="logout">
-        <form class="logout" action="/logout" method="post">
-            <input type="submit" value="Logout">
-        </form>
-    </div>
-    <div class="logout">
-        <form class="goback" action="#" method="post">
-            <input type="button" value="Go Back" onclick="window.history.back()">
-        </form>
-    </div>
-    {% if "true" == is_host %}
-        <form action="/quit" method="post"
-              onsubmit="return endSession()">
-            <input type="submit" value="End Session">
-            <input type="text" hidden="hidden" name="live_id" value="{{ live_id }}">
-        </form>
-        <div class="live">
-            <div class="message" id="messageBox">
+    <div class="livePage">
+        <div class="logoutArea">
+            <div class="logout">
+                <form class="logout" action="/logout" method="post">
+                    <input type="submit" value="Logout">
+                </form>
             </div>
-            <form action="#" method="post">
-                <input id="contentBox" type="text" placeholder="Type something..." name="content">
-                <input type="button" value="send" onclick="sendMsg()">
-            </form>
-        </div>
-        <script>
-            var sender = new GoEasy({appkey: '{{ appkey }}'});
-            var channel = '{{ channel }}';
-        </script>
-    {% else %}
-        <div class="live">
-            <div class="message" id="messageBox">
+            <div class="logout">
+                <form class="goback" action="#" method="post">
+                    <input type="button" value="Go Back" onclick="window.history.back()">
+                </form>
             </div>
-        </div>
-        <script>
-            var receiver = new GoEasy({appkey: '{{ appkey }}'});
-            receiver.subscribe({
-                channel: '{{ channel }}',
-                onMessage: function(message){
-                    //alert(message.content);
-                    appendToMessageBox(message.content);
-                }
-            });
-        </script>
+            {% if "true" == is_host %}
+                <div class="endsession">
+                    <form action="/quit" method="post"
+                          onsubmit="return endSession()">
+                        <input type="submit" value="End Session">
+                        <input type="text" hidden="hidden" name="live_id" value="{{ live_id }}">
+                    </form>
+                </div>
+            </div>
+            <div class="live">
+                <div class="message" id="messageBox">
+                </div>
+
+            </div>
+            <div class="inputBox">
+                <form action="#" method="post">
+                    <input id="contentBox" type="text" placeholder="Type something..." name="content">
+                    <input type="button" value="send" onclick="sendMsg()">
+                </form>
+            </div>
+            <script>
+                var sender = new GoEasy({appkey: '{{ appkey }}'});
+                var channel = '{{ channel }}';
+            </script>
+        {% else %}
+            </div>
+            <div class="live">
+                <div class="message" id="messageBox">
+                </div>
+            </div>
+            <script>
+                var receiver = new GoEasy({appkey: '{{ appkey }}'});
+                receiver.subscribe({
+                    channel: '{{ channel }}',
+                    onMessage: function(message){
+                        //alert(message.content);
+                        appendToMessageBox(message.content);
+                    }
+                });
+            </script>
+    </div>
     {% endif %}
 {% endif %}
 </body>
