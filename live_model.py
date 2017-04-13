@@ -78,6 +78,7 @@ def add_participant(live_id, participant_id):
     print(live_id)
     print(participant_id)
     live = get_live_session(live_id)
+    print(live)
     if '0' != live['price']:
         # host
         host_id = get_live_session(live_id)['host_id']

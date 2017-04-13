@@ -13,13 +13,14 @@ function validate() {
 
 /**
  * Validate the balance of user before joining a live session.
+ * @param hasJoined has joined before
  * @param price price of live session
  * @param balance balance in one's account
- * @returns whether the balance can afford the price
+ * @returns boolean the balance can afford the price
  */
-function checkValidation(price, balance)
+function checkValidation(hasJoined, price, balance)
 {
-    if(price > balance)
+    if("False" == hasJoined && price > balance)
     {
         alert("There is no enough balance in your account.");
         return false;

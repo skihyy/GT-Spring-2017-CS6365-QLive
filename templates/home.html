@@ -36,6 +36,7 @@
                     <input type="number" name="price" placeholder="Session Price" required="required" min="0">
                     <input type="submit" value="Start a Live Session">
                     <input type="text" name="live_id" hidden="hidden" id="liveID" value="-1">
+                    <input type="text" name="TODO" hidden="hidden" id="TODO" value="    ">
                 </form>
             </div>
         </div>
@@ -66,7 +67,7 @@
                         <td>
                             {% if 0 == live.has_end %}
                             <form class="liveDetails" action="/live" method="post"
-                                  onsubmit="return checkValidation({{ live.has_joined }}, {{ live.price }}, {{ user.balance }})">
+                                  onsubmit="return checkValidation('{{ live.has_joined }}', {{ live.price }}, {{ user.balance }})">
                                 <input type="text" name="live_id" hidden="hidden" id="liveID" value="{{ live.id }}">
                                 {% if live.host_id != session.user_id %}
                                     <input type="text" name="type" hidden="hidden" id="liveType1" value="false">

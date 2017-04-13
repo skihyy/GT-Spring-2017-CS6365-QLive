@@ -22,14 +22,18 @@
             <input type="submit" value="Logout">
         </form>
     </div>
+    <div class="logout">
+        <form class="goback" action="#" method="post">
+            <input type="button" value="Go Back" onclick="window.history.back()">
+        </form>
+    </div>
     {% if "true" == is_host %}
         <form action="/quit" method="post"
-              onsubmit="return confirm('Are you sure to end current live session?')">
+              onsubmit="return endSession()">
             <input type="submit" value="End Session">
             <input type="text" hidden="hidden" name="live_id" value="{{ live_id }}">
         </form>
         <div class="live">
-            "host"
             <div class="message" id="messageBox">
             </div>
             <form action="#" method="post">
@@ -43,7 +47,6 @@
         </script>
     {% else %}
         <div class="live">
-            "par"
             <div class="message" id="messageBox">
             </div>
         </div>
